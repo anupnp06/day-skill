@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Colorful Quiz Application</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #849ceb;
+  }
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #91bcee;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }  
+  h1 {
+    text-align: center;
+    color: #333;
+  }
+  #quiz {
+    margin-bottom: 20px;
+  }    
+  #quiz h2 {
+    margin-bottom: 10px;
+    color: #555;
+  }
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  li {
+    margin-bottom: 10px;
+  }
+  input[type="radio"] {
+    margin-right: 5px;
+  }
+  button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #186d94;
+  }
+  #feedback {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Quiz Application</h1>
+  <div id="quiz"></div>
+  <button id="submit">Submit</button>
+  <button id="next" style="display:none;">Next</button>
+  <button id="reset" style="display:none;">Reset</button>
+  <div id="feedback"></div>
+</div>
+
+<script>
+  const quizQuestions = [
+    {
+      question: "Do you know who am I?",
+      options: ["Anoop", "Bharath", "Prashanth", "Sabari"],
+      correctAnswer: "Anoop"
+    },
+    {
+      question: "What is the color of yellow ball?",
+      options: ["Blue", "Red", "Yellow", "Green"],
+      correctAnswer: "Yellow"
+    },
+    
+  ];
+
+  let currentQuestion = 0;
+  let score = 0;
+
+  const quizContainer = document.getElementById('quiz');
+  const submitButton = document.getElementById('submit');
+  const nextButton = document.getElementById('next');
+  const resetButton = document.getElementById('reset');
+  const feedbackContainer = document.getElementById('feedback');
+
+  function displayQuestion() {
+    const currentQuizQuestion = quizQuestions[currentQuestion];
+    quizContainer.innerHTML = `
+      <h2>${currentQuizQuestion.question}</h2>
+      <ul>
+        ${currentQuizQuestion.options.map(option => `<li><input type="checkbox" name="answer" value="${option}">${option}</li>`).join('')}
+      </ul>
+    `;
+  }
+
+  function checkAnswer() {
+    const selectedOption = document.querySelector('input[name="answer"]:checked');
+    if (!selectedOption) {
+      alert('Please select an answer.');
+      return;
+    }
+    const answer = selectedOption.value;
+    if (answer === quizQuestions[currentQuestion].correctAnswer) {
+      score++;
+      feedbackContainer.textContent = "True!";
+    } else {
+      feedbackContainer.textContent = "False!";
+    }
+    submitButton.style.display = 'none';
+    nextButton.style.display = 'block';
+  }
+
+  function nextQuestion() {
+    currentQuestion++;
+    if (currentQuestion < quizQuestions.length) {
+      displayQuestion();
+      feedbackContainer.textContent = '';
+      submitButton.style.display = 'block';
+      nextButton.style.display = 'none';
+    } else {
+      endQuiz();
+    }
+  }
+
+  function endQuiz() {
+    quizContainer.innerHTML = `<h2>Quiz ended!</h2><p>Your score: ${score}/${quizQuestions.length}</p>`;
+    nextButton.style.display = 'none';
+    resetButton.style.display = 'block';
+  }
+
+  function resetQuiz() {
+    currentQuestion = 0;
+    score = 0;
+    displayQuestion();
+    feedbackContainer.textContent = '';
+    resetButton.style.display = 'none';
+    submitButton.style.display = 'block';
+  }
+
+  submitButton.addEventListener('click', checkAnswer);
+  nextButton.addEventListener('click', nextQuestion);
+  resetButton.addEventListener('click', resetQuiz);
+
+  displayQuestion();
+</script>
+</body>
+</html>

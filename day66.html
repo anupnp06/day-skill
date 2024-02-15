@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIT RESTURANT</title>
+    <link rel="stylesheet" href="day66.css">
+</head>
+<body>
+    <header>
+        <h1>BIT RESTURANT</h1>
+    </header>
+    <div id="menu">
+        <div id="main-dish" class="menu-category"></div>
+        <h4>Chicken Biriyani</h4>
+        <h5>Rs.150</h5>
+        <div id="side-items" class="menu-category"></div>
+        <h4>Kuzhi Mandhi</h4>
+        <h5>Rs.170</h5>
+        <div id="drinks" class="menu-category"></div>
+        <h4>Alfam</h4>
+        <h5>Rs.340</h5>
+        <div id="desserts" class="menu-category"></div>
+        <h4>Shawaii</h4>
+        <h5>Rs.90</h5>
+        <div id="soup-salad" class="menu-category"></div>
+        <h4>Kabab</h4>
+        <h5>Rs.130</h5>
+    </div>
+    <div id="order">
+        <h2>Place Your Order</h2>
+        <div>
+            <label for="sales-tax-rate">Sales Tax Rate (%)</label>
+            <input type="number" id="sales-tax-rate" min="0" step="0.01">
+        </div>
+        <div>
+            <label for="tip-amount">Tip Amount ($)</label>
+            <input type="number" id="tip-amount" min="0" step="0.01">
+        </div>
+        <button onclick="calculateTotal()">Calculate Total</button>
+        <div id="total"></div>
+    </div>
+    <script src="menu.js"></script>
+</body>
+</html>
